@@ -89,11 +89,19 @@ Pour exécuter un intent :
 
 ###  En savoir plus
 [Intents et filtres d'intents](https://developer.android.com/guide/components/intents-filters)
+
 [Intents couramment utilisés](https://www.google.com/search?client=safari&rls=en&q=common+intents+android&ie=UTF-8&oe=UTF-8)
+
 [Créer des menus d'options avec du code XML](https://developer.android.com/guide/topics/ui/menus)
+
 [Interfaces en Kotlin](https://kotlinlang.org/docs/reference/interfaces.html)
+
 [Interface CharSequence](https://developer.android.com/reference/java/lang/CharSequence)
+
 [Sécurité null en Kotlin](https://kotlinlang.org/docs/reference/null-safety.html)
+
 [Expressions et déclarations d'objets en Kotlin](https://kotlinlang.org/docs/reference/object-declarations.html)
+
 [Modèle Singleton](https://en.wikipedia.org/wiki/Singleton_pattern)
+
 [Flux de contrôle en Kotlin](https://kotlinlang.org/docs/reference/control-flow.html)

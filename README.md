@@ -135,7 +135,7 @@ const val TAG = "MainActivity"
 Utilisez-la dans les appels suivants aux méthodes de journalisation, comme ci-dessous :
 Log.d(TAG, "onCreate Called")
 
-`override fun onCreate() {
+```override fun onCreate() {
    super.onCreate()
    Log.d(TAG, "onCreate Called")
 }
@@ -162,7 +162,8 @@ override fun onDestroy() {
 override fun onRestart() {
    super.onRestart()
    Log.d(TAG, "onRestart Called")
-}`
+}
+```
 
 > Remarque : Le point clé à retenir ici est que onCreate() et onDestroy() ne sont appelés qu'une seule fois pendant la durée de vie d'une seule instance d'activité : onCreate() pour initialiser l'application pour la première fois et onDestroy() pour nettoyer les ressources utilisées par l'application.
 
@@ -171,11 +172,12 @@ override fun onRestart() {
 ### Enregistrer les données du bundle à l'aide de la fonction onSaveInstanceState()
 La méthode `onSaveInstanceState()` est un rappel qui permet d'enregistrer les données dont vous pourriez avoir besoin si l'activité (`Activity`) était éliminée. Dans le schéma de rappel de cycle de vie, `onSaveInstanceState()` est appelé après l'arrêt de l'activité. Il est appelé chaque fois que votre application passe en arrière-plan.
 
-`override fun onSaveInstanceState(outState: Bundle) {
+```override fun onSaveInstanceState(outState: Bundle) {
    super.onSaveInstanceState(outState)
 
    Log.d(TAG, "onSaveInstanceState Called")
-}`
+}
+```
 > Remarque : Il existe deux forçages pour `onSaveInstanceState()`, l'un avec un paramètre outState uniquement, et l'autre qui comprend les paramètres `outState` et `outPersistentState`. Utilisez celui indiqué dans le code ci-dessus, avec le seul paramètre `outState`.
 
 #### Enregistrer et récupérer les données du bundle d'états d'instance.
@@ -187,10 +189,11 @@ outState.putInt(KEY_DESSERT_SOLD, dessertsSold)`
 
 > Remarque : Pendant que l'activité est recréée, le rappel onRestoreInstanceState() est appelé après onStart(), également avec le bundle. La plupart du temps, vous restaurez l'état de l'activité dans onCreate(). Toutefois, comme onRestoreInstanceState() est appelé après onStart(), vous pouvez utiliser onRestoreInstanceState() si vous devez restaurer un état après onCreate().
 
-`if (savedInstanceState != null) {
+```if (savedInstanceState != null) {
    revenue = savedInstanceState.getInt(KEY_REVENUE, 0)
    dessertsSold = savedInstanceState.getInt(KEY_DESSERT_SOLD, 0)
-}`
+}
+```
 
 ### Résumé
 #### Cycle de vie de l'activité

@@ -28,13 +28,23 @@ val filteredWords = words.filter { it.startsWith("b", ignoreCase = true) }
 
 ### En savoir plus
 [Vocabulaire pour les bases d'Android en Kotlin](https://developer.android.com/courses/android-basics-kotlin/android-basics-kotlin-vocab)
+
 [Collections Kotlin](https://kotlinlang.org/docs/reference/collections-overview.html)
+
 [Classe `List`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/)
+
 [Classe `Set`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/)
+
 [Classe `Map`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/)
+
 [Transformations de `Collection`](https://kotlinlang.org/docs/reference/collection-transformations.html)
+
 [Fonctions d'ordre supérieur et lambdas](https://kotlinlang.org/docs/reference/lambdas.html)
+
 [Types de fonctions](https://kotlinlang.org/docs/reference/lambdas.html#function-types)
+
 [`it`: nom implicite pour un seul paramètre](https://kotlinlang.org/docs/reference/lambdas.html#it-implicit-name-of-a-single-parameter)
+
 [Fonctions lambdas](https://play.kotlinlang.org/byExample/04_functional/02_Lambdas)
+
 [Fonctions d'ordre supérieur](https://play.kotlinlang.org/byExample/04_functional/01_Higher-Order%20Functions)

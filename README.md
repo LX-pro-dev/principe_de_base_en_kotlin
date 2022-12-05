@@ -106,6 +106,7 @@ Pour exécuter un intent :
 
 [Flux de contrôle en Kotlin](https://kotlinlang.org/docs/reference/control-flow.html)
 
+
 ## Étapes du cycle de vie d'une activité
 
 ### Objectifs de l'atelier
@@ -119,11 +120,11 @@ Téléchargez le code de démarrage de DessertClicker et ouvrez-le dans Android 
 URL du code de démarrage : https://github.com/google-developer-training/android-basics-kotlin-dessert-clicker-app/tree/starter
 Le nom du dossier est `android-basics-kotlin-dessert-clicker-app-starter`
 
-### cycle de vie d'une activity
+### Cycle de vie d'une activity
 ![image](https://user-images.githubusercontent.com/44195741/205606908-9fce872c-8193-4b34-817f-e018494a78aa.png)
 > Remarque : Lorsque vous remplacez la méthode `onCreate()`, vous devez appeler l'implémentation de la super-classe pour terminer la création de l'activité. Au sein de celle-ci, vous devez donc appeler immédiatement `super.onCreate()`. Il en va de même pour d'autres méthodes de rappel de cycle de vie.
 
-### journalisation
+### Journalisation
 La classe `Log` écrit les messages dans l'outil **Logcat**. **Logcat** est la console de journalisation des messages. C'est là que les messages Android concernant votre application s'affichent, y compris ceux que vous envoyez explicitement au journal avec la méthode `Log.d()` ou d'autres méthodes de classe `Log`.
 
 Cette commande se compose de trois parties :
@@ -230,8 +231,13 @@ if (savedInstanceState != null) {
 
 ### En savoir plus
 [Classe Log](https://developer.android.com/reference/android/util/Log)
+
 [Écrire et afficher des journaux avec Logcat](https://developer.android.com/studio/debug/am-logcat)
+
 [Constantes compile-time](https://kotlinlang.org/docs/reference/properties.html#compile-time-constants)
+
 [Classe Activity](https://developer.android.com/reference/android/app/Activity.html)
+
 [Classe AppCompatActivity](https://developer.android.com/reference/androidx/appcompat/app/AppCompatActivity)
+
 [Guide du développeur d'activités](https://developer.android.com/guide/components/activities/intro-activities#kotlin)

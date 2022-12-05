@@ -105,3 +105,117 @@ Pour exécuter un intent :
 [Modèle Singleton](https://en.wikipedia.org/wiki/Singleton_pattern)
 
 [Flux de contrôle en Kotlin](https://kotlinlang.org/docs/reference/control-flow.html)
+
+## Étapes du cycle de vie d'une activité
+
+### Objectifs de l'atelier
+- Modifier une application de démarrage appelée DessertClicker afin d'ajouter les informations de journalisation affichées dans l'outil Logcat
+- Remplacer les méthodes de rappel de cycle de vie et consigner les modifications apportées à l'état d'une activité
+- Exécuter l'application et observer les informations de journalisation qui s'affichent lorsque l'activité démarre, s'arrête et reprend
+- Implémenter la méthode `onSaveInstanceState()` pour conserver les données de l'application qui pourraient être perdues en cas de changement de la configuration Ajouter un code pour restaurer ces données lorsque l'application redémarrera
+
+Téléchargez le code de démarrage de DessertClicker et ouvrez-le dans Android Studio.
+
+URL du code de démarrage : https://github.com/google-developer-training/android-basics-kotlin-dessert-clicker-app/tree/starter
+Le nom du dossier est `android-basics-kotlin-dessert-clicker-app-starter`
+
+### cycle de vie d'une activity
+![image](https://user-images.githubusercontent.com/44195741/205606908-9fce872c-8193-4b34-817f-e018494a78aa.png)
+> Remarque : Lorsque vous remplacez la méthode `onCreate()`, vous devez appeler l'implémentation de la super-classe pour terminer la création de l'activité. Au sein de celle-ci, vous devez donc appeler immédiatement `super.onCreate()`. Il en va de même pour d'autres méthodes de rappel de cycle de vie.
+
+### journalisation
+La classe `Log` écrit les messages dans l'outil **Logcat**. **Logcat** est la console de journalisation des messages. C'est là que les messages Android concernant votre application s'affichent, y compris ceux que vous envoyez explicitement au journal avec la méthode `Log.d()` ou d'autres méthodes de classe `Log`.
+
+Cette commande se compose de trois parties :
+- La *priorité* du message de journal, c'est-à-dire son importance. Dans ce cas, la méthode `Log.d()` écrit un message de débogage. Les autres méthodes de la classe Log incluent `Log.i()` pour les messages d'information, `Log.e()` pour les erreurs, `Log.w()` pour les avertissements ou `Log.v()` pour les messages détaillés.
+- La *balise* de journal (premier paramètre), dans ce cas `"MainActivity"`. La balise est une chaîne qui vous permet de trouver plus facilement vos messages de journal dans Logcat. Elle correspond généralement au nom de la classe.
+- Le *message réel* (deuxième paramètre) est une chaîne courte qui, dans ce cas, est `"onCreate called"`.
+> Remarque : Nous vous recommandons de déclarer une const>Remarque : Nous vous recommandons de déclarer une constante TAG dans la classe, comme suit.
+const val TAG = "MainActivity"
+Utilisez-la dans les appels suivants aux méthodes de journalisation, comme ci-dessous :
+Log.d(TAG, "onCreate Called")
+
+`override fun onCreate() {
+   super.onCreate()
+   Log.d(TAG, "onCreate Called")
+}
+override fun onResume() {
+   super.onResume()
+   Log.d(TAG, "onResume Called")
+}
+
+override fun onPause() {
+   super.onPause()
+   Log.d(TAG, "onPause Called")
+}
+
+override fun onStop() {
+   super.onStop()
+   Log.d(TAG, "onStop Called")
+}
+
+override fun onDestroy() {
+   super.onDestroy()
+   Log.d(TAG, "onDestroy Called")
+}
+
+override fun onRestart() {
+   super.onRestart()
+   Log.d(TAG, "onRestart Called")
+}`
+
+> Remarque : Le point clé à retenir ici est que onCreate() et onDestroy() ne sont appelés qu'une seule fois pendant la durée de vie d'une seule instance d'activité : onCreate() pour initialiser l'application pour la première fois et onDestroy() pour nettoyer les ressources utilisées par l'application.
+
+> Remarque : Il est important de noter que les éléments onStart() et onStop() sont appelés plusieurs fois lorsque l'utilisateur accède à l'activité, puis la quitte.
+
+### Enregistrer les données du bundle à l'aide de la fonction onSaveInstanceState()
+La méthode `onSaveInstanceState()` est un rappel qui permet d'enregistrer les données dont vous pourriez avoir besoin si l'activité (`Activity`) était éliminée. Dans le schéma de rappel de cycle de vie, `onSaveInstanceState()` est appelé après l'arrêt de l'activité. Il est appelé chaque fois que votre application passe en arrière-plan.
+
+`override fun onSaveInstanceState(outState: Bundle) {
+   super.onSaveInstanceState(outState)
+
+   Log.d(TAG, "onSaveInstanceState Called")
+}`
+> Remarque : Il existe deux forçages pour `onSaveInstanceState()`, l'un avec un paramètre outState uniquement, et l'autre qui comprend les paramètres `outState` et `outPersistentState`. Utilisez celui indiqué dans le code ci-dessus, avec le seul paramètre `outState`.
+
+#### Enregistrer et récupérer les données du bundle d'états d'instance.
+`outState.putInt(KEY_REVENUE, revenue)
+outState.putInt(KEY_DESSERT_SOLD, dessertsSold)`
+
+#### Restaurer les données d'un bundle dans onCreate()
+`override fun onCreate(savedInstanceState: Bundle?) {`
+
+> Remarque : Pendant que l'activité est recréée, le rappel onRestoreInstanceState() est appelé après onStart(), également avec le bundle. La plupart du temps, vous restaurez l'état de l'activité dans onCreate(). Toutefois, comme onRestoreInstanceState() est appelé après onStart(), vous pouvez utiliser onRestoreInstanceState() si vous devez restaurer un état après onCreate().
+
+`if (savedInstanceState != null) {
+   revenue = savedInstanceState.getInt(KEY_REVENUE, 0)
+   dessertsSold = savedInstanceState.getInt(KEY_DESSERT_SOLD, 0)
+}`
+
+### Résumé
+#### Cycle de vie de l'activité
+- Le *cycle de vie de l'activité* correspond à un ensemble d'états par lesquels passe une activité. Il commence lorsque l'activité est créée pour la première fois et se termine lorsque l'activité est éliminée.
+- Lorsque l'utilisateur passe d'une activité à l'autre et de votre application à une autre, l'état change dans le cycle de vie de l'activité.
+- Chaque état du cycle de vie de l'activité possède une méthode de rappel correspondante que vous pouvez remplacer dans la classe `Activity`. Les principales méthodes de cycle de vie sont les suivantes : `onCreate()` `onStart()` `onPause()` `onRestart()` `onResume()` `onStop()` `onDestroy()`
+- Pour ajouter le comportement qui se produit lorsque votre activité passe à un état du cycle de vie, remplacez la méthode de rappel de correspondante.
+- Pour ajouter des méthodes de remplacement à vos classes dans Android Studio, sélectionnez **Code > Remplacer les méthodes** ou appuyez sur `Control+o`.
+
+#### Journalisation
+- L'API de journalisation Android, et plus particulièrement la classe `Log`, vous permet d'écrire des messages courts affichés dans l'outil Logcat dans Android Studio.
+- Utilisez `Log.d()` pour rédiger un message de débogage. Cette méthode utilise deux arguments : la balise de journal (généralement un nom de classe) et le message de journal (une courte chaîne).
+- Utilisez la fenêtre **Logcat** d'Android Studio pour afficher les journaux système, y compris les messages que vous écrivez.
+
+#### Conserver l'état de l'activité
+- Lorsque votre application passe en arrière-plan, juste après l'appel de la méthode `onStop()`, les données de l'application peuvent être enregistrées dans un bundle. Certaines données de l'application, telles que le contenu d'un élément `EditText`, sont automatiquement enregistrées.
+- Le bundle est une instance de `Bundle`, qui correspond à un ensemble de clés et de valeurs. Les clés sont toujours des chaînes.
+- Utilisez le rappel `onSaveInstanceState()` pour enregistrer d'autres données dans le bundle que vous souhaitez conserver, même si l'application a été fermée automatiquement. Pour placer des données dans le bundle, utilisez les méthodes correspondantes commençant par `put`, telles que `putInt()`.
+- Vous pouvez récupérer des données du bundle dans la méthode `onRestoreInstanceState()` ou, plus communément, dans `onCreate()`. La méthode `onCreate()` comporte un paramètre `savedInstanceState` qui détient le bundle.
+- Si la variable `savedInstanceState` est `null`, l'activité a été lancée sans bundle d'état et il n'existe pas de données d'état à récupérer.
+- Pour récupérer des données du bundle avec une clé, utilisez les méthodes `Bundle` commençant par `get`, par exemple `getInt()`.
+
+#### Modifications de la configuration
+- Une *modification de la configuration* se produit lorsque l'état de l'appareil change de manière si radicale que le moyen le plus simple de s'adapter à cette modification consiste à éliminer l'activité et à la recréer.
+- L'exemple le plus courant de modification de la configuration est lorsque l'utilisateur fait pivoter l'appareil du mode Portrait au mode Paysage, ou inversement. Une modification de la configuration peut également se produire lorsque la langue de l'appareil change ou qu'un clavier matériel est branché.
+- Lorsqu'une modification de configuration se produit, Android appelle tous les rappels d'arrêt du cycle de vie de l'activité. Android redémarre ensuite toute l'activité, en exécutant tous les rappels de démarrage du cycle de vie.
+- Quand Android arrête une application en raison d'une modification de la configuration, il redémarre l'activité avec le bundle d'état disponible pour `onCreate()`.
+- Comme pour l'arrêt d'un processus, enregistrez l'état de votre application dans le bundle dans `onSaveInstanceState()`.

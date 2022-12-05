@@ -227,3 +227,11 @@ if (savedInstanceState != null) {
 - Lorsqu'une modification de configuration se produit, Android appelle tous les rappels d'arrêt du cycle de vie de l'activité. Android redémarre ensuite toute l'activité, en exécutant tous les rappels de démarrage du cycle de vie.
 - Quand Android arrête une application en raison d'une modification de la configuration, il redémarre l'activité avec le bundle d'état disponible pour `onCreate()`.
 - Comme pour l'arrêt d'un processus, enregistrez l'état de votre application dans le bundle dans `onSaveInstanceState()`.
+
+### En savoir plus
+[Classe Log](https://developer.android.com/reference/android/util/Log)
+[Écrire et afficher des journaux avec Logcat](https://developer.android.com/studio/debug/am-logcat)
+[Constantes compile-time](https://kotlinlang.org/docs/reference/properties.html#compile-time-constants)
+[Classe Activity](https://developer.android.com/reference/android/app/Activity.html)
+[Classe AppCompatActivity](https://developer.android.com/reference/androidx/appcompat/app/AppCompatActivity)
+[Guide du développeur d'activités](https://developer.android.com/guide/components/activities/intro-activities#kotlin)
